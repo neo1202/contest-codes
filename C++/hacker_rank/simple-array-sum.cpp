@@ -17,8 +17,8 @@ int simpleArraySum(vector<int> ar) {
 
 int main()
 {
-    //ofstream fout(getenv("OUTPUT_PATH"));
-    ofstream fout("simple-array-sum.txt");
+    ofstream fout(getenv("OUTPUT_PATH"));
+    //ofstream fout("simple-array-sum.txt");
 
     int ar_count;
     cin >> ar_count;
