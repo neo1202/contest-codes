@@ -4,11 +4,28 @@ using namespace std;
 
 vector<string> split_string(string);
 
-// Complete the aVeryBigSum function below.
-long long aVeryBigSum(vector<long> ar) {
-    long long ans=0;
-    for(int i=0;i<ar.size();i++){
-        ans+=ar[i];
+// Complete the nonDivisibleSubset function below.
+int nonDivisibleSubset(int k, vector<int> S) {
+    int how[k];
+    int ans=0;
+    for(int i=0;i<k;i++){
+        how[i]=0;
+    }
+    for(int n :S){
+        how[n%k]++;
+    }
+    if(how[0]>0){
+        ans+=1;
+    }
+
+    for(int i=1;i<=k-i;i++){
+        if(i*2==k){
+            if(how[i]>0){
+                ans+=1;
+            }
+        }else{
+            ans += max(how[i], how[k - i]);
+        }
     }
     return ans;
 }
@@ -17,24 +34,29 @@ int main()
 {
     ofstream fout(getenv("OUTPUT_PATH"));
 
-    int ar_count;
-    cin >> ar_count;
-    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    string nk_temp;
+    getline(cin, nk_temp);
 
-    string ar_temp_temp;
-    getline(cin, ar_temp_temp);
+    vector<string> nk = split_string(nk_temp);
 
-    vector<string> ar_temp = split_string(ar_temp_temp);
+    int n = stoi(nk[0]);
 
-    vector<long> ar(ar_count);
+    int k = stoi(nk[1]);
 
-    for (int i = 0; i < ar_count; i++) {
-        long ar_item = stol(ar_temp[i]);
+    string S_temp_temp;
+    getline(cin, S_temp_temp);
 
-        ar[i] = ar_item;
+    vector<string> S_temp = split_string(S_temp_temp);
+
+    vector<int> S(n);
+
+    for (int i = 0; i < n; i++) {
+        int S_item = stoi(S_temp[i]);
+
+        S[i] = S_item;
     }
 
-    long result = aVeryBigSum(ar);
+    int result = nonDivisibleSubset(k, S);
 
     fout << result << "\n";
 
@@ -71,4 +93,3 @@ vector<string> split_string(string input_string) {
 
     return splits;
 }
-
